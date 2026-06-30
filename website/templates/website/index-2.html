@@ -1,4 +1,4 @@
-{% load static %}
+﻿{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -27,6 +27,399 @@
     <link href="{% static 'website/assets/css/jquery.fancybox.css' %}" rel="stylesheet">
     <link href="{% static 'website/assets/css/odometer-theme-default.css' %}" rel="stylesheet">
     <link href="{% static 'website/assets/sass/style.css' %}" rel="stylesheet">
+    <style>
+        /* ============================================================
+           GLOBAL RESPONSIVE FIXES — Mobile · Tablet · Laptop · Desktop
+           ============================================================ */
+
+        /* ── Header ── */
+        .wpo-site-header {
+            background: linear-gradient(90deg, #fff8f2 0%, #fdeef2 50%, #fff8f2 100%);
+            border-bottom: 1px solid rgba(200, 100, 120, 0.15);
+            box-shadow: 0 2px 16px rgba(200, 100, 120, 0.08);
+        }
+        /* nav links color */
+        .wpo-site-header .nav.navbar-nav li a {
+            color: #6b3a4a !important;
+            font-weight: 600;
+            letter-spacing: 0.4px;
+            transition: color 0.2s ease;
+        }
+        .wpo-site-header .nav.navbar-nav li a:hover,
+        .wpo-site-header .nav.navbar-nav li.active a {
+            color: #c8647b !important;
+        }
+
+        /* ── Story section — soft sage green tint ── */
+        .wpo-story-section-s2 {
+            background: linear-gradient(180deg, #f9f6f0 0%, #f3f7f2 50%, #f9f6f0 100%) !important;
+            position: relative;
+        }
+        .wpo-story-section-s2::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23b5c9a0' fill-opacity='0.08'%3E%3Cpath d='M40 0C18 0 0 18 0 40s18 40 40 40 40-18 40-40S62 0 40 0zm0 70C23.4 70 10 56.6 10 40S23.4 10 40 10s30 13.4 30 30-13.4 30-30 30z'/%3E%3C/g%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 0;
+        }
+        .wpo-story-section-s2 > * { position: relative; z-index: 1; }
+
+        /* Remove white card/border around story images */
+        .wpo-story-section-s2 .wpo-story-item .wpo-story-img-wrap .wpo-story-img,
+        .wpo-story-section-s2 .wpo-story-item .wpo-story-img-wrap .wpo-story-img img {
+            border-radius: 0 !important;
+            background: transparent !important;
+        }
+        .wpo-story-section-s2 .wpo-story-item .wpo-story-img-wrap .wpo-story-img::before {
+            display: none !important;
+        }
+
+        /* ── Base ── */
+        *, *::before, *::after { box-sizing: border-box; }
+        img { max-width: 100%; height: auto; display: block; }
+        body { overflow-x: hidden; }
+
+        /* ── Hero Section ── */
+        .static-hero-s2 { min-height: auto; }
+        .wpo-static-hero-inner { padding: 40px 15px 30px; text-align: center; }
+        .slide-title h2 { font-size: clamp(28px, 5vw, 72px); line-height: 1.2; }
+        .slide-text p  { font-size: clamp(14px, 2vw, 18px); }
+        .static-hero-right { text-align: center; }
+        .static-hero-img img { margin: 0 auto; }
+
+        /* Center the flower shape image on all screens */
+        .wpo-static-hero-inner .shape-1 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+        .wpo-static-hero-inner .shape-1 img {
+            margin: 0 auto;
+            display: block;
+        }
+
+        /* ── Countdown clock ── */
+        #clock2 .wpo-count-single { min-width: 60px; }
+
+        @media (max-width: 767px) {
+            /* Force all countdown items in one single row */
+            #clock2 {
+                display: flex !important;
+                flex-wrap: nowrap !important;
+                justify-content: center !important;
+                align-items: center !important;
+                gap: 20px !important;
+                width: 100% !important;
+                max-width: 320px !important;
+                margin: 0 auto !important;
+            }
+            #clock2 .wpo-count-single {
+                flex: 0 0 auto !important;
+                width: 22vw !important;
+                max-width: 90px !important;
+                min-width: unset !important;
+            }
+            /* Scale down the circle images inside each count item */
+            #clock2 .wpo-count-single img {
+                width: 100% !important;
+                height: auto !important;
+            }
+            /* Shrink the number and label text */
+            #clock2 .wpo-count-single .count-num,
+            #clock2 .wpo-count-single h2,
+            #clock2 .wpo-count-single .odometer {
+                font-size: 18px !important;
+                line-height: 1.1 !important;
+            }
+            #clock2 .wpo-count-single p,
+            #clock2 .wpo-count-single span {
+                font-size: 10px !important;
+            }
+            .clock-grids {
+                display: flex !important;
+                justify-content: center !important;
+                width: 100% !important;
+            }
+            .wpo-wedding-date {
+                display: flex !important;
+                justify-content: center !important;
+                width: 100% !important;
+            }
+        }
+
+        /* ── Section titles ── */
+        .wpo-section-title h2 { font-size: clamp(22px, 4vw, 48px); }
+        .wpo-section-title span { font-size: clamp(13px, 1.5vw, 16px); }
+
+        /* ── Couple section — layout handled by .couple-trio grid ── */
+
+        /* ── Story section ── */
+        .wpo-story-content-inner h2 { font-size: clamp(18px, 3vw, 36px); }
+        .wpo-story-content-inner p  { font-size: clamp(13px, 1.6vw, 16px); }
+
+        /* ── Events section ── */
+        .wpo-event-text h2 { font-size: clamp(18px, 2.5vw, 30px); }
+        .wpo-event-text ul li { font-size: clamp(13px, 1.4vw, 15px); }
+        /* keep time/date on a single line */
+        .wpo-event-text ul li:first-child { white-space: nowrap; }
+
+        /* right-img full width */
+        .right-img { width: 100%; }
+        .right-img img { width: 100%; height: auto; display: block; }
+
+        /* ── Invite section ── */
+        .invitation-quote-wrapper { padding: 20px 10px !important; }
+        .quote-content { max-width: 100% !important; }
+
+        /* ── CTA section ── */
+        .wpo-cta-item h2 { font-size: clamp(20px, 3.5vw, 42px); }
+        .wpo-cta-item p  { font-size: clamp(13px, 1.5vw, 16px); }
+
+        /* ── Footer ── */
+        .wpo-upper-wrap h3 { font-size: clamp(24px, 4vw, 52px); }
+        .wpo-upper-wrap p  { font-size: clamp(14px, 2vw, 20px); }
+
+        /* ============================================================
+           DESKTOP  ≥ 1200px
+           ============================================================ */
+        @media (min-width: 1200px) {
+            .wpo-static-hero-inner { padding: 60px 30px; text-align: left; }
+        }
+
+        /* ============================================================
+           LAPTOP  992px – 1199px
+           ============================================================ */
+        @media (max-width: 1199px) {
+            .wpo-static-hero-inner { padding: 40px 20px; text-align: left; }
+        }
+
+        /* ============================================================
+           TABLET  768px – 991px
+           ============================================================ */
+        @media (max-width: 991px) {
+
+            /* Hero */
+            .static-hero-s2 .row { flex-direction: column-reverse; }
+            .wpo-static-hero-inner { text-align: center; padding: 30px 20px; }
+            .static-hero-right { margin-bottom: 20px; }
+            .static-hero-img img { max-width: 420px; margin: 0 auto; }
+
+            /* Couple — responsive handled by couple-trio grid */
+
+            /* Story */
+            .wpo-story-item { flex-direction: column !important; }
+            .wpo-story-img-wrap,
+            .wpo-story-content { width: 100% !important; }
+            .wpo-story-img img { margin: 0 auto; max-width: 360px; }
+            .wpo-story-content-inner { padding: 20px 0 !important; text-align: center; }
+
+            /* Gallery */
+            .portfolio-grids .grid { width: 50% !important; }
+
+            /* Events */
+            .wpo-event-item { margin-bottom: 30px; }
+
+            /* Invite */
+            .wpo-contact-section-s2 .quote-content p { font-size: 16px !important; }
+            .left-img, .right-img { display: none; }
+
+            /* CTA */
+            .wpo-cta-section-s2 { padding: 50px 20px; text-align: center; }
+        }
+
+        /* ============================================================
+           MOBILE NAV  ≤ 991px
+           ============================================================ */
+        @media (max-width: 991px) {
+            /* Slide-in menu panel */
+            #navbar.navigation-holder {
+                background: #3d2b1f !important;
+                width: 280px !important;
+                max-width: 85vw !important;
+                padding: 20px 0 30px !important;
+                box-shadow: 4px 0 20px rgba(0,0,0,0.3) !important;
+            }
+            /* Nav links */
+            #navbar .nav.navbar-nav li a {
+                color: #fff !important;
+                font-size: 15px !important;
+                font-weight: 500 !important;
+                padding: 14px 28px !important;
+                display: block !important;
+                border-bottom: 1px solid rgba(255,255,255,0.08) !important;
+                letter-spacing: 0.5px !important;
+            }
+            #navbar .nav.navbar-nav li a:hover {
+                color: #f8be83 !important;
+                background: rgba(255,255,255,0.06) !important;
+            }
+            /* Remove dropdown arrow */
+            #navbar .nav.navbar-nav li > a::after { display: none !important; }
+            /* Close button */
+            .menu-close {
+                color: #fff !important;
+                font-size: 20px !important;
+                padding: 10px 20px !important;
+                display: block !important;
+                background: none !important;
+                border: none !important;
+                cursor: pointer !important;
+                margin-bottom: 8px !important;
+            }
+            /* Hamburger bars color */
+            .navbar-toggler .icon-bar { background: #3d2b1f !important; }
+        }
+
+        /* ============================================================
+           LARGE MOBILE  576px – 767px
+           ============================================================ */
+        @media (max-width: 767px) {
+
+            /* Nav */
+            .wpo-site-header { padding: 0; }
+
+            /* Hero — strip padding */
+            .static-hero-s2,
+            .static-hero-s2 .hero-container,
+            .static-hero-s2 .hero-inner { padding: 0 !important; }
+            .wpo-static-hero-inner { padding: 20px 15px 12px !important; }
+            .static-hero-right { padding: 0 !important; }
+
+            /* Section padding reduced */
+            .section-padding { padding-top: 50px !important; padding-bottom: 50px !important; }
+            .container, .container-fluid { padding-left: 15px !important; padding-right: 15px !important; }
+
+            /* Hero */
+            .slide-title h2 { font-size: clamp(26px, 7vw, 40px); }
+            .wpo-wedding-date { justify-content: center; }
+
+            /* Couple */
+            .couple-info-card { padding: 28px 18px 22px; }
+
+            /* Story */
+            .wpo-story-section-s2 .wpo-section-title h2 { font-size: 26px; }
+            .wpo-story-content-inner h2 { font-size: 20px; }
+            .wpo-story-content-inner span { font-size: 13px; }
+
+            /* Gallery — 2 columns */
+            .portfolio-grids .grid { width: 50% !important; }
+
+            /* Events — stack */
+            .wpo-event-section-s2 .col { width: 100% !important; max-width: 100%; }
+            .wpo-event-img img { width: 100%; }
+
+            /* Invite */
+            .wpo-contact-section-s2 .quote-content p { font-size: 15px !important; }
+            .wpo-contact-section-s2 div[style*="Save The Date"] h3 { font-size: 20px !important; }
+            .wpo-contact-section-s2 div[style*="Save The Date"] p  { font-size: 18px !important; }
+        }
+
+        /* ============================================================
+           MOBILE  ≤ 575px
+           ============================================================ */
+        @media (max-width: 575px) {
+
+            /* Hero — remove all padding */
+            .static-hero-s2,
+            .static-hero-s2 .hero-container,
+            .static-hero-s2 .hero-inner,
+            .static-hero-s2 .container-fluid { padding: 0 !important; margin: 0 !important; }
+            .wpo-static-hero-inner { padding: 16px 12px 8px !important; }
+            .static-hero-right { padding: 0 !important; margin: 0 !important; }
+
+            /* Remove section padding globally on mobile */
+            .section-padding { padding-top: 40px !important; padding-bottom: 40px !important; }
+            .wpo-couple-section-s2 { padding-top: 30px !important; padding-bottom: 20px !important; }
+            .wpo-story-section-s2  { padding-top: 30px !important; padding-bottom: 30px !important; }
+            .wpo-portfolio-section { padding-top: 30px !important; padding-bottom: 30px !important; }
+            .wpo-contact-section-s2 { padding-top: 30px !important; padding-bottom: 30px !important; }
+            .wpo-event-section-s2  { padding-top: 30px !important; padding-bottom: 30px !important; }
+            .container, .container-fluid { padding-left: 12px !important; padding-right: 12px !important; }
+            .row { margin-left: 0 !important; margin-right: 0 !important; }
+            .col, [class*="col-"] { padding-left: 8px !important; padding-right: 8px !important; }
+
+            /* Section titles */
+            .wpo-section-title h2   { font-size: 22px; }
+            .wpo-section-title span { font-size: 12px; letter-spacing: 1px; }
+
+            /* Couple */
+            .wpo-couple-section-s2 { padding-top: 36px !important; padding-bottom: 28px !important; }
+
+            /* Story */
+            .wpo-story-img img { max-width: 280px; }
+            .wpo-story-content-inner h2 { font-size: 18px; }
+            .wpo-story-content-inner p  { font-size: 13px; }
+
+            /* Gallery — full width on tiny screens */
+            .portfolio-grids .grid { width: 100% !important; }
+
+            /* Events */
+            .wpo-event-section .wpo-event-item .wpo-event-text,
+            .wpo-event-section-s2 .wpo-event-item .wpo-event-text {
+                max-width: 100% !important;
+                width: 100% !important;
+                padding: 20px 20px 16px !important;
+                margin: -60px auto 0 auto !important;
+                text-align: center !important;
+            }
+            .wpo-event-section .wpo-event-item .wpo-event-text .title h2,
+            .wpo-event-section-s2 .wpo-event-item .wpo-event-text .title h2 {
+                font-size: 20px !important;
+                text-align: center !important;
+            }
+            .wpo-event-section .wpo-event-item .wpo-event-text ul,
+            .wpo-event-section-s2 .wpo-event-item .wpo-event-text ul {
+                padding-left: 0 !important;
+                text-align: center !important;
+            }
+            .wpo-event-section .wpo-event-item .wpo-event-text ul li,
+            .wpo-event-section-s2 .wpo-event-item .wpo-event-text ul li {
+                font-size: 12px !important;
+                text-align: center !important;
+                padding-left: 0 !important;
+                white-space: normal;
+                word-break: keep-all;
+            }
+            .wpo-event-section .wpo-event-item .wpo-event-text ul li::before,
+            .wpo-event-section-s2 .wpo-event-item .wpo-event-text ul li::before {
+                display: none !important;
+            }
+            .wpo-event-img { text-align: center; }
+            .wpo-event-img img { margin: 0 auto; }
+
+            /* Invite */
+            .invitation-quote-wrapper { padding: 16px 8px !important; }
+            .wpo-contact-section-s2 .quote-content p { font-size: 14px !important; }
+
+            /* CTA */
+            .wpo-cta-item h2 { font-size: 20px; }
+            .wpo-cta-item p  { font-size: 13px; }
+
+            /* Footer */
+            .wpo-upper-wrap h3 { font-size: 28px; }
+            .wpo-upper-wrap p  { font-size: 14px; }
+        }
+
+        /* ============================================================
+           SMALL MOBILE  ≤ 380px
+           ============================================================ */
+        @media (max-width: 380px) {
+            .static-hero-s2,
+            .static-hero-s2 .hero-container,
+            .static-hero-s2 .hero-inner { padding: 0 !important; }
+            .wpo-static-hero-inner { padding: 10px 10px 6px !important; }
+            .container, .container-fluid { padding-left: 8px !important; padding-right: 8px !important; }
+            .section-padding { padding-top: 28px !important; padding-bottom: 28px !important; }
+            .slide-title h2 { font-size: 22px; }
+            .couple-card-inner h3 { font-size: 19px !important; }
+            .couple-card-inner p  { font-size: 13px; }
+            .couple-names-overlay { font-size: 14px; }
+            .wpo-event-text .title h2 { font-size: 16px; }
+            /* Clock sizing handled in the @media (max-width: 767px) block above */
+        }
+    </style>
 </head>
 
 <body>
@@ -71,7 +464,7 @@
                                 <div id="navbar" class="collapse navbar-collapse navigation-holder">
                                     <button class="menu-close"><i class="ti-close"></i></button>
                                     <ul class="nav navbar-nav mb-2 mb-lg-0">
-                                        <li class="menu-item-has-children">
+                                        <li>
                                             <a href="{% url 'home' %}">Home</a>
                                         </li>
                                         <li>
@@ -136,7 +529,9 @@
                                 <div class="wpo-static-hero-inner">
                                     <div class="shape-1"><img src="{% static 'website/assets/images/slider/shape2.png' %}" alt=""></div>
                                     <div data-swiper-parallax="300" class="slide-title">
-                                        <h2>Saran & Krishnaveni</h2>
+                                        <h2>Saran</h2>
+                                        <h2>&</h2>
+                                        <h2>Keerthana</h2>
                                     </div>
                                     <div data-swiper-parallax="400" class="slide-text">
                                         <p>We Are Getting Married September 13,2026</p>
@@ -195,47 +590,259 @@
         <!-- end wpo-partners-section-->
 
         <!-- start wpo-couple-section -->
-        <section class="wpo-couple-section-s2 section-padding p-0" id="couple">
+        <style>
+            /* Remove white hover shade on gallery images */
+            .wpo-portfolio-section .grid .img-holder:before {
+                display: none !important;
+            }
+
+            /* ════════════════════════════════════════
+               COUPLE SECTION — FULL REDESIGN v2
+               Layout: Groom info | Big photo | Bride info
+               ════════════════════════════════════════ */
+            .wpo-couple-section-s2 {
+                background: linear-gradient(160deg, #fff5f0 0%, #fde8ec 50%, #fff9f5 100%);
+                position: relative;
+                overflow: hidden;
+            }
+            /* dotted radial pattern */
+            .wpo-couple-section-s2::before {
+                content: '';
+                position: absolute;
+                inset: 0;
+                background-image: radial-gradient(circle, rgba(200,100,120,0.05) 1px, transparent 1px);
+                background-size: 28px 28px;
+                pointer-events: none;
+                z-index: 0;
+            }
+            .wpo-couple-section-s2 .container { position: relative; z-index: 1; }
+
+            /* ── Three-column grid ── */
+            .couple-trio {
+                display: grid;
+                grid-template-columns: 1fr auto 1fr;
+                gap: 40px;
+                align-items: center;
+                margin-top: 10px;
+            }
+
+            /* ── Center photo column ── */
+            .couple-center-col {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            .couple-img-frame {
+                position: relative;
+                display: inline-block;
+            }
+            .couple-img-frame img {
+                width: 400px;
+                max-width: 100%;
+                height: auto;
+                display: block;
+                border-radius: 0;
+                border: none;
+                box-shadow: none;
+                transition: transform 0.5s ease;
+            }
+            .couple-img-frame img:hover { transform: scale(1.02); }
+            /* floating heart badge */
+            .couple-img-badge {
+                position: absolute;
+                bottom: -20px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: #fff;
+                border-radius: 50%;
+                width: 52px; height: 52px;
+                display: flex; align-items: center; justify-content: center;
+                box-shadow: 0 6px 24px rgba(200,100,120,0.3);
+                z-index: 5;
+            }
+            .couple-img-badge i {
+                font-size: 22px;
+                color: #c8647b;
+                animation: heartPulse 1.6s ease-in-out infinite;
+            }
+            @keyframes heartPulse {
+                0%, 100% { transform: scale(1); }
+                50% { transform: scale(1.2); }
+            }
+            /* names beneath photo */
+            .couple-img-names {
+                margin-top: 38px;
+                font-size: 20px;
+                font-weight: 700;
+                font-style: italic;
+                color: #c8647b;
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                letter-spacing: 0.4px;
+            }
+            .couple-img-names i { font-size: 11px; animation: heartPulse 1.6s ease-in-out infinite; }
+
+            /* ── Info card (left & right) ── */
+            .couple-info-card {
+                background: rgba(255,255,255,0.88);
+                backdrop-filter: blur(6px);
+                border-radius: 28px;
+                padding: 40px 36px 32px;
+                text-align: center;
+                box-shadow: 0 10px 48px rgba(200,100,120,0.11);
+                border: 1px solid rgba(232,160,176,0.2);
+                position: relative;
+                overflow: hidden;
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+            }
+            .couple-info-card::after {
+                content: '';
+                position: absolute;
+                bottom: 0; left: 0; right: 0;
+                height: 3px;
+                background: linear-gradient(90deg, transparent, #e8a0b0 40%, #f8be83 60%, transparent);
+                border-radius: 0 0 28px 28px;
+            }
+            .couple-info-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 20px 60px rgba(200,100,120,0.18);
+            }
+            /* icon avatar at top */
+            .couple-info-icon {
+                width: 62px; height: 62px;
+                background: linear-gradient(135deg, #fde8ec, #fff5f0);
+                border-radius: 50%;
+                display: flex; align-items: center; justify-content: center;
+                margin: 0 auto 16px;
+                box-shadow: 0 4px 18px rgba(200,100,120,0.18);
+                border: 2px solid rgba(232,160,176,0.3);
+            }
+            .couple-info-icon i { font-size: 24px; color: #c8647b; }
+            .couple-info-card h3 {
+                font-size: 32px !important;
+                font-weight: 700 !important;
+                color: #c8647b !important;
+                font-style: italic !important;
+                margin-bottom: 6px !important;
+                line-height: 1.1 !important;
+            }
+            /* thin divider */
+            .couple-divider {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 10px;
+                margin: 10px 0 18px;
+            }
+            .couple-divider::before,
+            .couple-divider::after {
+                content: '';
+                flex: 1;
+                height: 1px;
+                background: linear-gradient(90deg, transparent, #e8a0b0);
+                max-width: 60px;
+            }
+            .couple-divider::after {
+                background: linear-gradient(90deg, #e8a0b0, transparent);
+            }
+            .couple-divider i { color: #e8a0b0; font-size: 9px; }
+            .couple-info-card > p {
+                font-size: 15px;
+                line-height: 2;
+                color: #888;
+                margin-bottom: 20px;
+            }
+            /* parents tag */
+            .couple-parents {
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                background: linear-gradient(90deg, #fde8ec, #fff5f0);
+                border-radius: 40px;
+                padding: 8px 20px;
+                font-size: 13px;
+                color: #b06070;
+                font-weight: 500;
+                border: 1px solid rgba(232,160,176,0.3);
+            }
+            .couple-parents i { color: #c8647b; }
+
+            /* ── Responsive ── */
+            @media (max-width: 991px) {
+                .couple-trio {
+                    grid-template-columns: 1fr;
+                    gap: 30px;
+                }
+                /* reorder: photo first on mobile */
+                .couple-center-col { order: -1; }
+                .couple-img-frame img { max-width: 80vw; }
+            }
+            @media (max-width: 575px) {
+                .couple-info-card { padding: 28px 20px 24px; border-radius: 20px; }
+                .couple-info-card h3 { font-size: 26px !important; }
+                .couple-info-card > p { font-size: 14px; line-height: 1.85; }
+                .couple-img-names { font-size: 17px; margin-top: 24px; }
+            }
+        </style>
+
+        <section class="wpo-couple-section-s2 section-padding" id="couple">
             <div class="container">
-                <div class="couple-area clearfix">
-                    <div class="row align-items-center">
-                        <div class="col col-xl-3 col-lg-4 col-12">
-                            <div class="text-grid wow fadeInLeftSlow" data-wow-duration="800ms">
-                                <h3>Saran</h3>
-                                <p>Life has been a beautiful journey for Saran, filled with dreams, growth, and love. Today, he stands ready to begin a new chapter with the one who makes his world complete.</p>
-                                <!-- <div class="social">
-                                    <ul>
-                                        <li><a href="#"><i class="ti-facebook"></i></a></li>
-                                        <li><a href="#"><i class="ti-twitter-alt"></i></a></li>
-                                        <li><a href="#"><i class="ti-instagram"></i></a></li>
-                                    </ul>
-                                </div> -->
-                            </div>
+
+                <!-- Section Title -->
+                <div class="wpo-section-title text-center" style="padding-bottom: 40px;">
+                    <span>The Couple</span>
+                    <h2>Together Forever</h2>
+                </div>
+
+                <!-- Three-column layout: Groom | Photo | Bride -->
+                <div class="couple-trio">
+
+                    <!-- Groom Card -->
+                    <div class="couple-info-card wow fadeInLeftSlow" data-wow-duration="900ms">
+                        <div class="couple-info-icon">
+                            <i class="fa fa-male"></i>
                         </div>
-                        <div class="col col-xl-6 col-lg-4 col-12">
-                            <div class="middle-couple-pic-wrap">
-                                <div class="middle-couple-pic wow zoomIn" data-wow-duration="1000ms">
-                                    <div class="middle-couple-pic-inner">
-                                        <img src="{% static 'website/assets/images/couple/couple.png' %}" alt="">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col col-xl-3 col-lg-4 col-12">
-                            <div class="text-grid wow fadeInRightSlow" data-wow-duration="800ms">
-                                <h3>Krishnaveni</h3>
-                                <p>Krishnaveni’s journey is filled with love, laughter, and cherished moments. With a heart full of dreams, she is ready to walk hand in hand into a lifetime of happiness.</p>
-                                <!-- <div class="social">
-                                    <ul>
-                                        <li><a href="#"><i class="ti-facebook"></i></a></li>
-                                        <li><a href="#"><i class="ti-twitter-alt"></i></a></li>
-                                        <li><a href="#"><i class="ti-instagram"></i></a></li>
-                                    </ul>
-                                </div> -->
-                            </div>
+                        <h3>Saran</h3>
+                        <div class="couple-divider"><i class="fa fa-heart"></i></div>
+                        <p>Life has been a beautiful journey for Saran, filled with dreams, growth, and love. Today, he stands ready to begin a new chapter with the one who makes his world complete.</p>
+                        <div class="couple-parents">
+                            <i class="fa fa-users"></i>
+                            Son of <strong>Marimuthu &amp; Malathi</strong>
                         </div>
                     </div>
+
+                    <!-- Center Photo -->
+                    <div class="couple-center-col wow zoomIn" data-wow-duration="1000ms">
+                        <div class="couple-img-frame">
+                            <img src="{% static 'website/assets/images/couple/couple.png' %}" alt="Saran &amp; Keerthana">
+                            <div class="couple-img-badge">
+                                <i class="fa fa-heart"></i>
+                            </div>
+                        </div>
+                        <div class="couple-img-names">
+                            <span>Saran</span>
+                            <i class="fa fa-heart"></i>
+                            <span>Keerthana</span>
+                        </div>
+                    </div>
+
+                    <!-- Bride Card -->
+                    <div class="couple-info-card wow fadeInRightSlow" data-wow-duration="900ms">
+                        <div class="couple-info-icon">
+                            <i class="fa fa-female"></i>
+                        </div>
+                        <h3>Keerthana</h3>
+                        <div class="couple-divider"><i class="fa fa-heart"></i></div>
+                        <p>Keerthana's journey is filled with love, laughter, and cherished moments. With a heart full of dreams, she is ready to walk hand in hand into a lifetime of happiness.</p>
+                        <div class="couple-parents">
+                            <i class="fa fa-users"></i>
+                            Daughter of <strong>Ganesan &amp; Lakshmi</strong>
+                        </div>
+                    </div>
+
                 </div>
+
             </div> <!-- end container -->
         </section>
         <!-- end wpo-couple-section -->
@@ -244,56 +851,59 @@
         <section class="wpo-story-section-s2 section-padding" id="story">
             <div class="container">
                 <div class="wpo-section-title">
-                    <span>Our Story</span>
-                    <h2>How it Happened</h2>
+                    <span>Our Journey</span>
+                    <h2>A Love Story Begins</h2>
                 </div>
                 <div class="wpo-story-wrap">
+
+                    <!-- Story 1: First Meeting -->
                     <div class="wpo-story-item">
                         <div class="wpo-story-img-wrap wow fadeInLeftSlow" data-wow-duration="1700ms">
                             <div class="wpo-story-img">
-                                <img src="{% static 'website/assets/images/story/4.png' %}" alt="">
+                                <img src="{% static 'website/assets/images/story/4.png' %}" alt="How We Met">
                             </div>
                         </div>
                         <div class="wpo-story-content">
                             <div class="wpo-story-content-inner wow fadeInRightSlow" data-wow-duration="1700ms">
-                                <span>15 June, 2014</span>
-                                <h2>How we meet</h2>
-                                <p>Consectetur adipiscing elit. Fringilla at risus orci, tempus facilisi sed. Enim
-                                    tortor, faucibus netus orci donec volutpat adipiscing.</p>
+                                <span>The First Meeting</span>
+                                <h2>When Our Eyes Met</h2>
+                                <p>Two families, one destiny. Saran and Keerthana were introduced through their families a simple meeting that quietly sparked something beautiful. From the very first moment, there was a warmth between them that neither could explain.</p>
                             </div>
                         </div>
                     </div>
+
+                    <!-- Story 2: Engagement -->
                     <div class="wpo-story-item">
                         <div class="wpo-story-img-wrap wow fadeInRightSlow" data-wow-duration="1700ms">
                             <div class="wpo-story-img">
-                                <img src="{% static 'website/assets/images/story/proposed.png' %}" alt="">
+                                <img src="{% static 'website/assets/images/story/proposed.png' %}" alt="Engagement">
                             </div>
                         </div>
                         <div class="wpo-story-content">
                             <div class="wpo-story-content-inner wow fadeInLeftSlow" data-wow-duration="1700ms">
-                                <span>02 Nov, 2020</span>
-                                <h2>He proposed, I said yes</h2>
-                                <p>Consectetur adipiscing elit. Fringilla at risus orci, tempus facilisi sed. Enim
-                                    tortor, faucibus netus orci donec volutpat adipiscing.</p>
+                                <span>01 February, 2026</span>
+                                <h2>The Engagement</h2>
+                                <p>Surrounded by the love of family and the blessings of elders, Saran and Keerthana exchanged rings and promised to walk through life together. It was a moment filled with joy, tears, and the quiet certainty that this was the beginning of forever.</p>
                             </div>
                         </div>
                     </div>
+
+                    <!-- Story 3: Wedding -->
                     <div class="wpo-story-item">
                         <div class="wpo-story-img-wrap wow fadeInLeftSlow" data-wow-duration="1700ms">
                             <div class="wpo-story-img">
-                                <img src="{% static 'website/assets/images/story/engagement.png' %}" alt="">
+                                <img src="{% static 'website/assets/images/story/engagement.png' %}" alt="Wedding Day">
                             </div>
                         </div>
                         <div class="wpo-story-content">
                             <div class="wpo-story-content-inner wow fadeInRightSlow" data-wow-duration="1700ms">
-                                <span>01 Feb, 2026</span>
-                                <h2>Our Engagement Day</h2>
-                                <p>On this beautiful day, we took our first step towards forever.
-                                    We exchanged rings and promised to walk hand in hand through every chapter of life.
-                                    This special moment marked the beginning of our forever story.</p>
+                                <span>13 September, 2026</span>
+                                <h2>The Wedding Day</h2>
+                                <p>With the sacred fire as their witness and the blessings of God above, Saran and Keerthana will unite as one. We warmly invite you to be part of this divine celebration as two souls begin their journey as husband and wife.</p>
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div> <!-- end container -->
         </section>
@@ -302,7 +912,7 @@
         <!-- start wpo-portfolio-section -->
         <section class="wpo-portfolio-section section-padding p-0" id="gallery">
             <h2 class="d-none">hidden</h2>
-            <div class="container">
+            <div class="container" style="padding-top: 30px;">
                 <div class="wpo-section-title">
                     <span>Gallery</span>
                     <h2>Our Sweet Memories</h2>
@@ -314,70 +924,73 @@
                             <div class="portfolio-grids gallery-container clearfix">
                                 <div class="grid">
                                     <div class="img-holder">
-                                        <a href="website/assets/images/portfolio/7.jpg" class="fancybox"
+                                        <a href="{% static 'website/assets/images/fam.jpeg' %}" class="fancybox"
                                             data-fancybox-group="gall-1">
-                                            <img src="{% static 'website/assets/images/portfolio/7.jpg' %}" alt class="img img-responsive">
-                                            <div class="hover-content">
-                                                <i class="ti-plus"></i>
-                                            </div>
+                                            <img src="{% static 'website/assets/images/fam.jpeg' %}" alt class="img img-responsive">
+                                            <!-- -->
                                         </a>
                                     </div>
                                 </div>
                                 <div class="grid">
                                     <div class="img-holder">
-                                        <a href="website/assets/images/portfolio/8.jpg" class="fancybox"
+                                        <a href="{% static 'website/assets/images/couple1.jpeg' %}" class="fancybox"
                                             data-fancybox-group="gall-1">
-                                            <img src="{% static 'website/assets/images/portfolio/8.jpg' %}" alt class="img img-responsive">
-                                            <div class="hover-content">
-                                                <i class="ti-plus"></i>
-                                            </div>
+                                            <img src="{% static 'website/assets/images/couple1.jpeg' %}" alt class="img img-responsive">
+                                            <!-- -->
                                         </a>
                                     </div>
                                 </div>
                                 <div class="grid">
                                     <div class="img-holder">
-                                        <a href="website/assets/images/portfolio/9.jpg" class="fancybox"
+                                        <a href="{% static 'website/assets/images/fam1.jpeg' %}" class="fancybox"
                                             data-fancybox-group="gall-1">
-                                            <img src="{% static 'website/assets/images/portfolio/9.jpg' %}" alt class="img img-responsive">
-                                            <div class="hover-content">
-                                                <i class="ti-plus"></i>
-                                            </div>
+                                            <img src="{% static 'website/assets/images/fam1.jpeg' %}" alt class="img img-responsive">
+                                            <!-- -->
                                         </a>
                                     </div>
                                 </div>
                                 <div class="grid">
                                     <div class="img-holder">
-                                        <a href="website/assets/images/portfolio/11.jpg" class="fancybox"
+                                        <a href="{% static 'website/assets/images/wearing.jpeg' %}" class="fancybox"
                                             data-fancybox-group="gall-1">
-                                            <img src="{% static 'website/assets/images/portfolio/11.jpg' %}" alt class="img img-responsive">
-                                            <div class="hover-content">
-                                                <i class="ti-plus"></i>
-                                            </div>
+                                            <img src="{% static 'website/assets/images/wearing.jpeg' %}" alt class="img img-responsive">
                                         </a>
                                     </div>
                                 </div>
                                 <div class="grid">
                                     <div class="img-holder">
-                                        <a href="website/assets/images/portfolio/10.jpg" class="fancybox"
+                                        <a href="{% static 'website/assets/images/couple3.jpeg' %}" class="fancybox"
                                             data-fancybox-group="gall-1">
-                                            <img src="{% static 'website/assets/images/portfolio/10.jpg' %}" alt class="img img-responsive">
-                                            <div class="hover-content">
-                                                <i class="ti-plus"></i>
-                                            </div>
+                                            <img src="{% static 'website/assets/images/couple3.jpeg' %}" alt class="img img-responsive">
                                         </a>
                                     </div>
                                 </div>
                                 <div class="grid">
                                     <div class="img-holder">
-                                        <a href="website/assets/images/portfolio/12.jpg" class="fancybox"
+                                        <a href="{% static 'website/assets/images/ring.jpeg' %}" class="fancybox"
                                             data-fancybox-group="gall-1">
-                                            <img src="{% static 'website/assets/images/portfolio/12.jpg' %}" alt class="img img-responsive">
-                                            <div class="hover-content">
-                                                <i class="ti-plus"></i>
-                                            </div>
+                                            <img src="{% static 'website/assets/images/ring.jpeg' %}" alt class="img img-responsive">
                                         </a>
                                     </div>
                                 </div>
+                                <div class="grid">
+                                    <div class="img-holder">
+                                        <a href="{% static 'website/assets/images/couple2.jpeg' %}" class="fancybox"
+                                            data-fancybox-group="gall-1">
+                                            <img src="{% static 'website/assets/images/couple2.jpeg' %}" alt class="img img-responsive">
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class="grid">
+                                    <div class="img-holder">
+                                        <a href="{% static 'website/assets/images/bro.png' %}" class="fancybox"
+                                            data-fancybox-group="gall-1">
+                                            <img src="{% static 'website/assets/images/bro.png' %}" alt class="img img-responsive">
+                                        </a>
+                                    </div>
+                                </div>
+                                                                                                 
                             </div>
                         </div>
                     </div>
@@ -519,7 +1132,7 @@
                             <div class="wpo-event-item wow fadeInUp" data-wow-duration="1000ms">
                                 <div class="wpo-event-img">
                                     <div class="wpo-event-img-inner">
-                                        <img src="{% static 'website/assets/images/event/reception.png' %}" alt="">
+                                        <img src="{% static 'website/assets/images/event/recep.png' %}" alt="">
                                     </div>
                                 </div>
                                 <div class="wpo-event-text">
@@ -527,10 +1140,10 @@
                                         <h2>The Reception</h2>
                                     </div>
                                     <ul>
-                                        <li>1:00 PM – 2:30 PM</li>
-                                        <li>Washington Ave. Manchester, 39495</li>
-                                        <li> <a class="popup-gmaps"
-                                                href="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d25211.21212385712!2d144.95275648773628!3d-37.82748510398018!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad642af0f11fd81%3A0x5045675218ce7e0!2zTWVsYm91cm5lIFZJQyAzMDA0LCDgpoXgprjgp43gpp_gp43gprDgp4fgprLgpr_gpq_gprzgpr4!5e0!3m2!1sbn!2sbd!4v1503742051881">See
+                                        <li>12.09.2026 Saturday – 7:00 PM</li>
+                                        <li>Sri Ramalinga Chowdeswari Devi Prayer Hall</li>
+                                        <li> <a target="_blank" rel="noopener noreferrer"
+                                                href="https://maps.app.goo.gl/cujGVaR5p7hzRjSL6?g_st=aw">See
                                                 Location</a></li>
                                     </ul>
                                 </div>
@@ -548,10 +1161,10 @@
                                         <h2>The Marriage</h2>
                                     </div>
                                     <ul>
-                                        <li>1:00 PM – 2:30 PM</li>
-                                        <li>Washington Ave. Manchester, 39495</li>
-                                        <li> <a class="popup-gmaps"
-                                                href="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d25211.21212385712!2d144.95275648773628!3d-37.82748510398018!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad642af0f11fd81%3A0x5045675218ce7e0!2zTWVsYm91cm5lIFZJQyAzMDA0LCDgpoXgprjgp43gpp_gp43gprDgp4fgprLgpr_gpq_gprzgpr4!5e0!3m2!1sbn!2sbd!4v1503742051881">See
+                                        <li>13.09.2026 Sunday, 8:30 AM – 10:00 AM</li>
+                                        <li>Sri Ramalinga Chowdeswari Devi Prayer Hall</li>
+                                        <li> <a target="_blank" rel="noopener noreferrer"
+                                                href="https://maps.app.goo.gl/cujGVaR5p7hzRjSL6?g_st=aw">See
                                                 Location</a></li>
                                     </ul>
                                 </div>
@@ -571,7 +1184,7 @@
                                     <ul>
                                         <li>1:00 PM – 2:30 PM</li>
                                         <li>Washington Ave. Manchester, 39495</li>
-                                        <li> <a class="popup-gmaps"
+                                        <li> <a target="_blank" rel="noopener noreferrer"
                                                 href="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d25211.21212385712!2d144.95275648773628!3d-37.82748510398018!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad642af0f11fd81%3A0x5045675218ce7e0!2zTWVsYm91cm5lIFZJQyAzMDA0LCDgpoXgprjgp43gpp_gp43gprDgp4fgprLgpr_gpq_gprzgpr4!5e0!3m2!1sbn!2sbd!4v1503742051881">See
                                                 Location</a></li>
                                     </ul>
@@ -647,26 +1260,10 @@
         <!-- end wpo-blog-section -->
 
         <!-- start of wpo-site-footer-section -->
-        <footer class="wpo-site-footer-s2"
-            style="background: url({% static 'website/assets/images/footer-bg2.jpg' %}) no-repeat center center;  background-size: cover;">
-            <div class="wpo-upper-footer">
-                <div class="wpo-upper-wrap">
-                    <h3>Thank You</h3>
-                    <p>For Being With Us</p>
-                    <div class="shape1"><img src="{% static 'website/assets/images/ft-fower1.png' %}" alt=""></div>
-                    <div class="shape2"><img src="{% static 'website/assets/images/ft-fower2.png' %}" alt=""></div>
-                </div>
-            </div>
-            <!-- <div class="wpo-lower-footer">
-                <div class="container">
-                    <div class="row">
-                        <div class="col col-xs-12">
-                            <p class="copyright"> &copy; Copyright 2024 | <a href="index.html">Mawhub</a> | All right
-                                reserved.</p>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
+        <footer class="wpo-site-footer-s2" style="padding: 0; margin: 0; line-height: 0; background: none;">
+            <img src="{% static 'website/assets/images/footer.png' %}" 
+                 alt="Footer" 
+                 style="width: 100%; height: auto; display: block; object-fit: contain;">
         </footer>
         <!-- end of wpo-site-footer-section -->
 
