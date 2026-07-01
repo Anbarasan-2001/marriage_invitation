@@ -277,6 +277,25 @@
            ============================================================ */
         @media (max-width: 767px) {
 
+            /* Gopuram image — center on mobile */
+            .static-hero-right {
+                display: flex !important;
+                justify-content: center !important;
+                align-items: center !important;
+                width: 100% !important;
+            }
+            .static-hero-img,
+            .static-hero-img-inner {
+                display: flex !important;
+                justify-content: center !important;
+                align-items: center !important;
+                width: 100% !important;
+            }
+            .static-hero-img-inner img {
+                margin: 0 auto !important;
+                display: block !important;
+            }
+
             /* Nav */
             .wpo-site-header { padding: 0; }
 
@@ -320,6 +339,18 @@
            MOBILE  ≤ 575px
            ============================================================ */
         @media (max-width: 575px) {
+
+            /* Gopuram — keep centered on small mobile too */
+            .static-hero-right,
+            .static-hero-img,
+            .static-hero-img-inner {
+                display: flex !important;
+                justify-content: center !important;
+                width: 100% !important;
+            }
+            .static-hero-img-inner img {
+                margin: 0 auto !important;
+            }
 
             /* Hero — remove all padding */
             .static-hero-s2,
