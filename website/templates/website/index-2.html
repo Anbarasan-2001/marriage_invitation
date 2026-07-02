@@ -1319,6 +1319,16 @@
     <script src="{% static 'website/assets/js/jquery-plugin-collection.js' %}"></script>
     <!-- Custom script for this template -->
     <script src="{% static 'website/assets/js/script.js' %}"></script>
+
+    <script>
+        // Close mobile nav when any nav link is clicked
+        $(document).ready(function () {
+            $('#navbar .nav.navbar-nav a').on('click', function () {
+                $('.navigation-holder').removeClass('slideInn');
+                $('.open-btn').removeClass('x-close');
+            });
+        });
+    </script>
 </body>
 
 
